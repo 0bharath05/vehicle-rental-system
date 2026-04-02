@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h1>📊 Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+    <h3>Total Revenue</h3>
+    <p>₹{{ revenue }}</p>
+</div>
+
+<div class="card">
+    <h3>Total Rentals</h3>
+    <p>{{ rentals }}</p>
+</div>
+
+<div class="card">
+    <h3>Available Vehicles</h3>
+    <p>{{ available }}</p>
+</div>
+
+</div>
+
+<a href="/">⬅ Back</a>
+
+</div>
+
+</body>
+</html>

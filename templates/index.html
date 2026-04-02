@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vehicle Rental System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div>🚗 Vehicle Rental System</div>
+    <div>
+        Welcome {{ user }} |
+        <a href="/dashboard">Dashboard</a> |
+        <a href="/logout">Logout</a>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- TOTAL REVENUE -->
+<h3>Total Revenue: ₹{{ total }}</h3>
+
+<!-- SEARCH -->
+<form method="POST" class="search-box">
+    <input type="text" name="search" placeholder="Search vehicle...">
+    <button>Search</button>
+</form>
+
+<!-- VEHICLES -->
+<h2>Available Vehicles</h2>
+
+<div class="cards">
+{% for v in vehicles %}
+    <div class="card">
+
+        <!-- IMAGE -->
+        <img src="{{ url_for('static', filename='images/' + v.image) }}">
+
+        <!-- NAME -->
+        <h3>{{ v.name }}</h3>
+
+        <!-- PRICE -->
+        <p class="price">₹{{ v.rent_per_km }}/km</p>
+
+        {% if v.available == 1 %}
+        <form action="/rent" method="POST">
+            <input type="hidden" name="vehicle_id" value="{{ v.id }}">
+            <input type="text" name="id_proof" placeholder="Enter ID Proof" required>
+            <button>Rent</button>
+        </form>
+        {% else %}
+            <p class="rented">Currently Rented</p>
+        {% endif %}
+
+    </div>
+{% endfor %}
+</div>
+
+<!-- ACTIVE RENTALS -->
+<h2>Active Rentals</h2>
+
+<div class="cards">
+{% for r in rentals %}
+    {% if r.end_time == None %}
+    <div class="card">
+        <h3>{{ r.vehicle_name }}</h3>
+        <p>User: {{ r.user_name }}</p>
+
+        <form action="/return/{{ r.vehicle_id }}" method="POST">
+            <input type="number" name="km" placeholder="KM Travelled" required>
+            <button>Return Vehicle</button>
+        </form>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+
+<!-- COMPLETED RENTALS -->
+<h2>Completed Rentals</h2>
+
+<div class="cards">
+{% for r in rentals %}
+    {% if r.end_time != None %}
+    <div class="card">
+        <h3>{{ r.vehicle_name }}</h3>
+        <p><b>KM:</b> {{ r.km }}</p>
+        <p><b>Cost:</b> ₹{{ r.cost }}</p>
+        <p><b>Returned:</b> {{ r.end_time }}</p>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+
+</div>
+
+</body>
+</html>

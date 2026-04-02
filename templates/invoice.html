@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h1>🧾 Invoice</h1>
+
+<div class="card">
+    <p><b>Vehicle:</b> {{ r.vehicle_name }}</p>
+    <p><b>User:</b> {{ r.user_name }}</p>
+    <p><b>KM:</b> {{ r.km }}</p>
+    <p><b>Total Cost:</b> ₹{{ r.cost }}</p>
+    <p><b>Returned At:</b> {{ r.end_time }}</p>
+</div>
+
+<br>
+<a href="/">Back to Home</a>
+
+</div>
+
+</body>
+</html>

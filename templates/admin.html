@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<h3>Add Vehicle</h3>
+<form method="POST" action="/add_vehicle">
+    <input type="text" name="name" placeholder="Vehicle Name" required>
+    <input type="number" name="rate" placeholder="Rate/km" required>
+    <button>Add</button>
+</form>
+
+<h3>All Vehicles</h3>
+
+{% for v in vehicles %}
+    <p>
+        {{ v.name }} - ₹{{ v.rent_per_km }}
+        <a href="/delete_vehicle/{{ v.id }}">Delete</a>
+    </p>
+{% endfor %}
+
+<a href="/">Back</a>
+
+</body>
+</html>
